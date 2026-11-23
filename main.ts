@@ -22,6 +22,11 @@ if (chars < 1 || chars > 24) {
 if (/\s/.test(WORD)) {
   throw new Error("entry.txt must be exactly one word");
 }
+// A word, not punctuation or digits: the judge compares words, so the
+// entry must read as one English word with no hidden second token.
+if (!/^[A-Za-z]+$/.test(WORD)) {
+  throw new Error("entry.txt must be exactly one word of letters");
+}
 
 const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
 mkdirSync(outDir, { recursive: true });
